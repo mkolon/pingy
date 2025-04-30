@@ -11,7 +11,7 @@ ping_count_flag = "-n" if platform.system().lower() == "windows" else "-c"
 # Loop through each target and ping
 for index, row in df.iterrows():
     ip = row["IP"]
-    label = row["Label"].strip('"')
+    label = str(row["Label"]).strip('"') if pd.notnull(row["Label"]) else "(no label)"
     try:
         result = subprocess.run(
             ["ping", ping_count_flag, "1", ip],
